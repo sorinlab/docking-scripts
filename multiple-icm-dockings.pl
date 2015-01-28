@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
-#Multiple ICM dockings. This program allows the user to dock a single ligand
-#molecule to a protein with the ICM-Pro molecular modeling software. Although
+#Multiple ICM docking. This program allows the user to dock a single ligand
+#molecule to a protein with the ICM-Pro molecular modelling software. Although
 #the ICM-Pro software is distributed under a proprietary licence, the author
 #of this program has distributed this script under the GNU GPLv2 license and
 #hopes the developers of ICM-Pro will release their programs as free software
