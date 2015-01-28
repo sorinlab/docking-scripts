@@ -36,13 +36,13 @@ $dataLocation=$icmLocation.$projectName.'/'.$ligandName.'/';
 
 print("Please make sure you have placed all your project files in the correct",
     "directory. \n This program will search the following directory for ",
-    "project files: \n".$dataLocation."\n";
+    "project files: \n".$dataLocation."\n");
 sleep 1;
 print("Continuing");
 sleep .3;
 print(".");
 sleep .3;
-print(".")
+print(".");
 sleep .4;
 print(".\n\n\n");
 
@@ -89,10 +89,10 @@ for($i=1; $i<=$numberRuns; $i++) {
 }
 close(W) || die $!;
 
-system("sort -n -k2 temp.log > $projectName."_".$ligandName.".log"");
-system("rm temp.log")
+system("sort -n -k2 temp.log > $projectName"."_".$ligandName.".log");
+system("rm temp.log");
 
-$finish=gmtime(time());
+$end=gmtime(time());
 print("Start Process at $start\n");
 print("End Process at $end \n\n\n");
 
