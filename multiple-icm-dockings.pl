@@ -28,8 +28,13 @@ $projectName=$ARGV[0];
 $ligandName=$ARGV[1];
 $numberRuns=$ARGV[2];
 $thoroughCount=$ARGV[3];
+$threads=$ARGV[4];
 
 $start=gmtime(time());
+
+if($threads=='') {
+    $threads=1;
+}
 
 $icmLocation=$ENV{'ICMHOME'}.'/';
 $dataLocation=$icmLocation.$projectName.'/'.$ligandName.'/';
@@ -51,7 +56,7 @@ system("mkdir ./data.old && mv *.ob data.old/");
 
 for($i=1; $i<=$numberRuns; $i++) {
     system("$icmLocation"."/"."icm64 _dockScan $projectName input=$ligandName.mol"
-        ." -s confs=50 throrough=$thoroughCount outdir=$dataLocation");
+        ." -s confs=50 throrough=$thoroughCount outdir=$dataLocation jobs=$threads");
     system("mv $projectName"."_$ligandName"."1.ob $ligandName"."_dock$i.ob");
     $dockingTimestamp=localtime();
     print("Docking $i complete on $dockingTimestamp\n");
