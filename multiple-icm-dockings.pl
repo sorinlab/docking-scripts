@@ -30,7 +30,7 @@ $numberRuns=$ARGV[2];
 $thoroughCount=$ARGV[3];
 $threads=$ARGV[4];
 
-$start=gmtime(time());
+$start=localtime();
 
 if($threads=='') {
     $threads=1;
