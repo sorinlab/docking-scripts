@@ -55,7 +55,7 @@ chdir $dataLocation;
 system("mkdir ./data.old && mv *.ob data.old/");
 
 for($i=1; $i<=$numberRuns; $i++) {
-    system("$icmLocation"."/"."icm64 _dockScan $projectName input=$ligandName.mol"
+    system("$icmLocation"."/"."icm64 "$icmLocation"."dockScan $projectName input=$ligandName.mol"
         ." -s confs=50 throrough=$thoroughCount outdir=$dataLocation jobs=$threads");
     system("mv $projectName"."_$ligandName"."1.ob $ligandName"."_dock$i.ob");
     $dockingTimestamp=localtime();
