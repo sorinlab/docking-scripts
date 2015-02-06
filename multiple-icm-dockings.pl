@@ -42,21 +42,22 @@ $dataLocation=$icmLocation.$projectName.'/'.$ligandName.'/';
 print("Please make sure you have placed all your project files in the correct",
     "directory. \n This program will search the following directory for ",
     "project files: \n".$dataLocation."\n");
+sleep 3;
+print ("Continuing");
 sleep 1;
-print("Continuing");
-sleep .3;
 print(".");
-sleep .3;
+sleep 1;
 print(".");
-sleep .4;
+sleep 1;
 print(".\n\n\n");
 
 chdir $dataLocation;
 system("mkdir ./data.old && mv *.ob data.old/");
 
 for($i=1; $i<=$numberRuns; $i++) {
-    system("$icmLocation"."/"."icm64 "$icmLocation"."dockScan $projectName input=$ligandName.mol"
-        ." -s confs=50 throrough=$thoroughCount outdir=$dataLocation jobs=$threads");
+    system("$icmLocation/icm64 $icmLocation/_dockScan $projectName "
+        ."input=$ligandName.mol -s confs=50 throrough=$thoroughCount "
+        ."outdir=$dataLocation jobs=$threads");
     system("mv $projectName"."_$ligandName"."1.ob $ligandName"."_dock$i.ob");
     $dockingTimestamp=localtime();
     print("Docking $i complete on $dockingTimestamp\n");
