@@ -52,7 +52,7 @@ sleep 1;
 print(".\n\n\n");
 
 chdir $dataLocation;
-system("mkdir ./data.old && mv *.ob data.old/");
+#system("mkdir ./data.old && mv *.ob data.old/");
 
 for($i=1; $i<=$numberRuns; $i++) {
     system("$icmLocation"."icm64 $icmLocation/_dockScan $projectName "
@@ -98,7 +98,7 @@ close(W) || die $!;
 system("sort -n -k2 temp.log > $projectName"."_".$ligandName.".log");
 system("rm temp.log");
 
-$end=gmtime(time());
+$end=localtime();
 print("Start Process at $start\n");
 print("End Process at $end \n\n\n");
 
