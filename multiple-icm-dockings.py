@@ -127,7 +127,7 @@ time_start = datetime.datetime.now()
 print "Dockings Started on %s" % time_start
 
 # Run the dockings
-for i in range(args.number):
+for i in range(1, args.number):
     if args.verbose:
         try:
             print subprocess.check_output(icm_dockScan)
@@ -144,7 +144,7 @@ for i in range(args.number):
         args.PROJECT + "_" + args.LIGAND + "1.ob")
     ob_dest = os.path.join(
         location_project,
-        args.LIGAND + "_dock" + i + ".ob")
+        args.LIGAND + "_dock" + str(i) + ".ob")
     shutil.move(ob_src, ob_dest)
 
 # Write ICM Script to grab best 50 confs onto disk
