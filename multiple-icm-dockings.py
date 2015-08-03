@@ -117,10 +117,10 @@ icm_dockScan = [
     os.path.join(location_top, args.PROJECT, args.PROJECT),
     "input=" + os.path.join(location_project, args.LIGAND + ".mol"),
     "-s",
-    "confs=" + args.confs,
-    "thorough=" + args.thorough,
+    "confs=" + str(args.confs),
+    "thorough=" + str(args.thorough),
     "outdir=" + location_project,
-    "jobs=" + args.spawn]
+    "jobs=" + str(args.spawn)]
 
 # Start the timer for DOCKINGS
 time_start = datetime.datetime.now()
