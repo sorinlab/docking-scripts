@@ -119,7 +119,7 @@ icm_dockScan = [
     "-s",
     "confs=" + str(args.confs),
     "thorough=" + str(args.thorough),
-    "outdir=" + location_project,
+    "outdir=" + location_project + "/",
     "jobs=" + str(args.spawn)]
 
 # Start the timer for DOCKINGS
