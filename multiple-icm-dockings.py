@@ -127,7 +127,7 @@ time_start = datetime.datetime.now()
 print "Dockings Started on %s" % time_start
 
 # Run the dockings
-for i in range(1, args.number):
+for i in range(args.number):
     if args.verbose:
         try:
             print subprocess.check_output(icm_dockScan)
