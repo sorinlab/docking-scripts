@@ -1,27 +1,27 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 #
-#Multiple ICM docking. This program allows the user to dock a single ligand
-#molecule to a protein with the ICM-Pro molecular modelling software. Although
-#the ICM-Pro software is distributed under a proprietary licence, the author
-#of this program has distributed this script under the GNU GPLv2 license and
-#hopes the developers of ICM-Pro will release their programs as free software
-#as well.
-#
-#Copyright (C) 2015 Dennis Chen <barracks510>
-#
-#This program is free software; you can redistribute it and/or
-#modify it under the terms of the GNU General Public License
-#as published by the Free Software Foundation; either version 2
-#of the License, or (at your option) any later version.
-#
-#This program is distributed in the hope that it will be useful,
-#but WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#GNU General Public License for more details.
-#
-#You should have received a copy of the GNU General Public License
-#along with this program; if not, write to the Free Software
-#Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Multiple ICM docking. This program allows the user to dock a single ligand
+# molecule to a protein with the ICM-Pro molecular modelling software. Although
+# the ICM-Pro software is distributed under a proprietary licence, the author
+# of this program has distributed this script under the GNU GPLv2 license and
+# hopes the developers of ICM-Pro will release their programs as free software
+# as well.
+# 
+# Copyright (C) 2015 Dennis Chen <barracks510@gmail.com>
+# 
+# This program is free software; you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation; either version 2 of the License, or (at your option) any later
+# version.
+# 
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+# details.
+# 
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 51
+# Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
 $projectName=$ARGV[0];
