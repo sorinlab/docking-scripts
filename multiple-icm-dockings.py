@@ -129,15 +129,12 @@ print "Dockings Started on %s" % time_start
 # Run the dockings
 for i in range(args.number):
     if args.verbose:
-        try:
-            print subprocess.check_output(icm_dockScan)
-        except subprocess.CalledProcessError:
-            print "Something is wrong with your current configuration."
-            sys.exit()
+        err = subprocess.call(icm_dockScan)
     else:
-        if not subprocess.call(icm_dockScan):
-            print "Something is wrong with your current configuration."
-            sys.exit()
+        err = subprocess.call(icm_dockScan, stdout=open(os.devnull, 'wb'))
+    if err:
+        print "Something is wrong with your current configuration."
+        sys.exit()
     print "Dock %s was completed on %s" % (i, datetime.datetime.now())
     ob_src = os.path.join(
         location_project,
@@ -147,11 +144,15 @@ for i in range(args.number):
         args.LIGAND + "_dock" + str(i) + ".ob")
     shutil.move(ob_src, ob_dest)
 
+# Timestamp Docking Completition
+time_docking = datetime.datetime.now()
+print "Dockings Finished on %s" % time_end
+
 # Write ICM Script to grab best 50 confs onto disk
 print "Writing temporary script to disk...",
 with open(os.path.join(location_top, "icm_script"), "w") as icm_script:
     icm_script.write("#!%s\n" % icm_bin)
-    icm_script.write("for i=1, %i\n" % args.number)
+    icm_script.write("for i=0, %i\n" % (args.number - 1))
     location_ligand = os.path.join(location_project, args.LIGAND)
     icm_script.write("s_obname= \"%s_dock\"+i+\".ob\";\n" % location_ligand)
     icm_script.write("s_sdfname= \"%s_dock\"+i+\".sdf\"\n" % location_ligand)
@@ -169,13 +170,41 @@ icm_icm_script = [
     "-s",
     os.path.join(location_top, "icm_script")]
 if args.verbose:
-    try:
-        print subprocess.check_output(icm_icm_script)
-    except subprocess.CalledProcessError:
-        print "ERROR"
-        sys.exit()
+    err = subprocess.call(icm_icm_script)
 else:
-    if not subprocess.call(icm_icm_script):
-        print "ERROR"
-        sys.exit()
-    print "DONE"
+    err = subprocess.call(icm_icm_script, stdout=open(os.devnull, "wb"))
+if err:
+    print "ERROR"
+    sys.exit()
+print "DONE"
+
+# Grab the best docking score from each dock
+print "Grabbing the best docking scores...",
+scores = []
+for i in range(args.number):
+    with open("%s_dock%i.sdf" % (location_ligand, i), "r") as sdf:
+        scores[i] = (i, float(sdf.readline()))
+print "DONE"
+
+# Sorting each docking score and creating a final log
+print "Sorting through the docking scores...",
+scores.sort(key=lambda x: x[1])
+print "DONE"
+
+print "Writing scores to disk...",
+with open(os.path.join(location_project, args.LIGAND + ".log"), "w") as log:
+    for score in scores:
+        log.write("DOCK%05i\t%015d\n" % (score[0], score[1]))
+print "DONE"
+
+# Save to a receipt of the run
+print "Saving runtime information...",
+with open(os.path.join(location_project, args.LIGAND + ".save"), "w") as rec:
+    rec.write(args)
+print "DONE"
+
+# Record completetion time
+time_end = datetime.datetime.now()
+print "Procedure Finished on %s" % time_end
+print "Total Time Taken: "
+print time_end - time_start
