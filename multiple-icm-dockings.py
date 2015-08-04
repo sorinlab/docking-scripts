@@ -35,9 +35,6 @@ def get_options():
         "LIGAND",
         help="target ligand")
     parser.add_argument(
-        "-p", "--pdb",
-        help="build ICM project from PDB")
-    parser.add_argument(
         "-n", "--number",
         type=int,
         default=1,
@@ -131,7 +128,10 @@ for i in range(args.number):
     if args.verbose:
         err = subprocess.call(icm_dockScan)
     else:
-        err = subprocess.call(icm_dockScan, stdout=open(os.devnull, 'wb'))
+        err = subprocess.call(
+            icm_dockScan,
+            stdout=open(os.devnull, 'wb'),
+            stderr=subprocess.STDOUT)
     if err:
         print "Something is wrong with your current configuration."
         sys.exit()
@@ -146,7 +146,7 @@ for i in range(args.number):
 
 # Timestamp Docking Completition
 time_docking = datetime.datetime.now()
-print "Dockings Finished on %s" % time_end
+print "Dockings Finished on %s" % time_docking
 
 # Write ICM Script to grab best 50 confs onto disk
 print "Writing temporary script to disk...",
@@ -172,7 +172,10 @@ icm_icm_script = [
 if args.verbose:
     err = subprocess.call(icm_icm_script)
 else:
-    err = subprocess.call(icm_icm_script, stdout=open(os.devnull, "wb"))
+    err = subprocess.call(
+        icm_icm_script,
+        stdout=open(os.devnull, "wb"),
+        stderr=subprocess.STDOUT)
 if err:
     print "ERROR"
     sys.exit()
@@ -194,7 +197,7 @@ print "DONE"
 print "Writing scores to disk...",
 with open(os.path.join(location_project, args.LIGAND + ".log"), "w") as log:
     for score in scores:
-        log.write("DOCK%05i\t%015d\n" % (score[0], score[1]))
+        log.write("DOCK%05i\t%015f\n" % (score[0], score[1]))
 print "DONE"
 
 # Save to a receipt of the run
