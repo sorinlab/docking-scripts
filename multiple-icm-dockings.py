@@ -186,7 +186,7 @@ print "Grabbing the best docking scores...",
 scores = []
 for i in range(args.number):
     with open("%s_dock%i.sdf" % (location_ligand, i), "r") as sdf:
-        scores[i] = (i, float(sdf.readline()))
+        scores.append((i, float(sdf.readline())))
 print "DONE"
 
 # Sorting each docking score and creating a final log
